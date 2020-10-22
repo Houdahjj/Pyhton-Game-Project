@@ -2,11 +2,15 @@ import pygame
 import math
 from game import Game
 
-pygame.init()
 
+#creation de la fenêtre 
+
+pygame.init()
 pygame.display.set_caption("Jeu d'évitement")
 screen = pygame.display.set_mode((1080,620))
 
+
+#arrière plan
 
 background = pygame.image.load('sunset.jpg')
 background = pygame.transform.scale(background, (1080, 620))
@@ -30,40 +34,41 @@ play_button_rect.y = math.ceil(screen.get_height() / 1.3)
 
 game = Game()
 
-
+#On initialise le lancement du jeu à true
 running = True
+
+#On initialise le compteur et le score à 0
 
 compteur = 0
 score = 0
 
-police = pygame.font.Font(None,72)
-compteur = 0
+#police du score
 
-#boucle du jeu
+police = pygame.font.Font(None,72)
+
+#boucle du jeu : tant que le jeu est lancé
 while running:
 
-    #arrière-plan image
+    #on affiche l'arrière-plan image
     screen.blit(background,(0,0))
 
 
 
-    #le jeu a commencé?
+    #si la partie a commencé, on lance le compteur 
     if game.is_playing:
         compteur+=1
         score = compteur
-        #declancher les instructions
-        game.update(screen) #parametre de la fenetre pour qu'elle soit récupérée dans game
+        #on déclanche les instructions
+        game.update(screen) #paramètre de la fenetre pour qu'elle soit récupérée dans game
         texte = police.render(str(compteur), True, pygame.Color("#FFFF00"))
-        screen.blit(texte, [0, 0])
+        screen.blit(texte, [0, 0]) #on affiche le score dans le coin 0,0
 
 
-
+    #si la partie n'as pas commencé, on affiche le compteur ou dernier compteur et on affiche les éléments de l'écran de bienvenue
     if not game.is_playing:
         texte = police.render(str(score), True, pygame.Color("#FFFF00"))
         screen.blit(texte, [10, 10])
         compteur=0
-        #texte2 = police.render(str(score), True, pygame.Color("#FFFF00"))
-        #screen.blit(texte2, [0, 0])
 
         #ecran de bienvenue
         screen.blit(banner,banner_rect)
@@ -73,18 +78,18 @@ while running:
     # application
     pygame.display.flip()
 
-
+    #pour les évenements récupérés par pygame
     for event in pygame.event.get():
         # si le joueur ferme la fenêtre
-        if event.type == pygame.QUIT:
-            running = False
+        if event.type == pygame.QUIT: 
+            running = False; #on arrete le jeu
             pygame.quit()
             print("Fermeture du jeu")
         # voir si le joueur lache une touche du clavier
         # verifier quelle touche a été actionée, 2/ fluidité déplacement
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN: #touche du bas
             game.pressed[event.key] = True
-        elif event.type == pygame.KEYUP:
+        elif event.type == pygame.KEYUP: #touche du haut
             game.pressed[event.key] = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
