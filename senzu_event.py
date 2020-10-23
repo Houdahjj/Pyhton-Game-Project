@@ -1,12 +1,13 @@
 import pygame
 from senzu import Senzu
 
+#cette classe fonctionne de la même manière que les événéments des projectiles sauf que le nombre des senzus sera moins conséquent que les projectiles (et ils apparaitront moins souvent)
 class SenzuEvent:
 
     def __init__(self, game):
         self.percent = 100
         self.percent_speed = 5
-        #groupe de projectile
+        #groupe de senzus
         self.all_senzu = pygame.sprite.Group()
         self.a = 0
         self.b = 1
@@ -15,9 +16,7 @@ class SenzuEvent:
     def senzu_fall(self):
         for i in range(self.a, self.b):
             self.all_senzu.add(Senzu(self))
-        # Pour accelerer l'apparition des boules
         self.percent_speed += 1
-        # Pour augmenter le nombre de boules
         self.b += 1
 
     def reset_percent(self):
@@ -26,8 +25,6 @@ class SenzuEvent:
     def attempt_fall(self):
         if self.loaded():
             self.senzu_fall()
-
-            # ICI QUE JE DOIS AUGMENTER LA VELOCITY
             self.reset_percent()
 
     def update(self):
