@@ -1,6 +1,7 @@
 import pygame
 import random
 
+#cette classe est implémentée de la même manière que la classe des projectiles sauf que au lieu de subir des dégats, le joueur gagne de la vie
 
 class Senzu(pygame.sprite.Sprite):
 
@@ -31,7 +32,7 @@ class Senzu(pygame.sprite.Sprite):
                 print("joueur touché")
                 self.remove()
 
-                #subir dégats
+                #remonter points de vie
                 self.senzu_event.game.player.senzu(20)
 
 
