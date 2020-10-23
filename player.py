@@ -3,7 +3,7 @@ import pygame
 #classe pour le joueur
 
 class Player(pygame.sprite.Sprite):         #sprite pour que ça soit un composant du jeu
-
+#initialisation de la vie, vie maximum, vitesse(velocity), image du perso et redimensionage, coordonnées du personnage. 
     def __init__(self, game):
         super().__init__()          #initialiser le sprite
         self.game = game
@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):         #sprite pour que ça soit un composa
         self.rect.x = 100                           #abcisses
         self.rect.y = 200                           #ordonées
 
-
+#Fonctions qui permettent de faire monter et descendre le personnage
     def move_up(self):
         self.rect.y -= self.velocity
 
